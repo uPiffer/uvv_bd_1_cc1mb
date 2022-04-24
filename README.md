@@ -1,10 +1,10 @@
-# PSET 1
+# PSET 1 Banco de Dados
 
-### Banco de Dados
-### Professor: Abrantes
+### Professor: Abrantes Araújo Silva Filho
+### Monitora: Suellen Miranda Amorim
 
 
-### Gabriel Negreiros Piffer CC1Mb
+### Gabriel Negreiros Piffer - CC1Mb
 
 
 ### Começando
