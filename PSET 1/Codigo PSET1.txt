@@ -1,3 +1,46 @@
+/* Começei entrando no Dbeaver utilizando o usuario padrão: usuario: postgres senha: computacao@raiz
+Apos isto abri o console do Dbeaver e utilizei ele para criar meu usuario:
+
+CREATE ROLE "Gabriel" WITH 
+	SUPERUSER
+	CREATEDB
+	CREATEROLE
+	INHERIT
+	LOGIN
+	NOREPLICATION
+	NOBYPASSRLS
+	CONNECTION LIMIT -1;
+  
+Até ai so tinha criado o usuario, ele estava sem a senha, então utilizei o comando:
+ 
+ALTER USER "Gabriel" PASSWORD '123456';
+ 
+Ficando assim um usuario com senha. 
+*/
+
+-- Apos criar o usuario, começei criando o banco de dados:
+ 
+CREATE DATABASE uvv
+  			OWNER "Gabriel"
+        TEMPLATE 'template0'
+        ENCODING 'UTF8'
+        LC_COLLATE 'pt_BR.UTF-8'
+        LC_CTYPE 'pt_BR.UTF-8'
+        ALLOW_CONNECTIONS true 
+        CONNECTION LIMIT -1;
+
+
+-- Apos isto criei o Schema:
+
+CREATE SCHEMA elmasri AUTHORIZATION Gabriel;
+
+-- Continuando, fiz as alterações como dizia no PSET:
+
+SET SEARCH_PATH TO elmasri, "$user", public;
+
+-- Logo apos começei a criação das tabelas
+
+  
 CREATE TABLE elmasri.dependente (
                 cpf_funcionario CHAR(11) NOT NULL,
                 nome_dependente VARCHAR(15) NOT NULL,
@@ -14,7 +57,6 @@ COMMENT ON COLUMN dependente.sexo IS 'Aqui temos o genero deste dependente.',
 COMMENT ON COLUMN dependente.data_nascimento IS 'Aqui temos a data de nascimento do dependente.',
 COMMENT ON COLUMN dependente.parentesco IS 'Aqui temos qual o tipo de parentesco este dependente tem.';
 
-
 CREATE TABLE elmasri.departamento (
                 numero_departamento INTEGER NOT NULL,
                 nome_departamento VARCHAR(15) NOT NULL,
@@ -23,18 +65,15 @@ CREATE TABLE elmasri.departamento (
                 CONSTRAINT pk_departamento PRIMARY KEY (numero_departamento)
 );
 
-
 CREATE UNIQUE INDEX departamento_idx
  ON elmasri.departamento
  ( nome_departamento );
-
 
 COMMENT ON TABLE departamento IS 'Aqui temos a tabela com informações sobre os departamentos.',
 COMMENT ON COLUMN departamento.numero_departamento IS 'Aqui temos os numeros referentes a cada departamento.',
 COMMENT ON COLUMN departamento.nome_departamento IS 'Aqui temos o nome de um departamento.',
 COMMENT ON COLUMN departamento.cpf_gerente IS 'Aqui temos o cpf do gerente deste departamento.',
 COMMENT ON COLUMN departamento.data_inicio_gerente IS 'Aqui temos a data que o gerente começou.';
-
 
 CREATE TABLE elmasri.projeto (
                 numero_projeto INTEGER NOT NULL,
@@ -54,7 +93,6 @@ COMMENT ON COLUMN projeto.nome_projeto IS 'Aqui temos o nome de um projeto.',
 COMMENT ON COLUMN projeto.local_projeto IS 'Aqui temos o local no qual este projeto está.'
 COMMENT ON COLUMN projeto.numero_departamento IS 'Aqui temos o numero do departamento no qual este projeto faz parte.';
 
-
 CREATE TABLE elmasri.trabalha_em (
                 cpf_funcionario CHAR(11) NOT NULL,
                 numero_projeto INTEGER NOT NULL,
@@ -67,7 +105,6 @@ COMMENT ON COLUMN trabalha_em.cpf_funcionario IS 'Aqui temos o cpf de um funcion
 COMMENT ON COLUMN trabalha_em.numero_projeto IS 'Aqui temos o numero do projeto no qual este funcionario trabalha.',
 COMMENT ON COLUMN trabalha_em.horas IS 'Aqui temos quantas horas este funcionario trabalha.';
 
-
 CREATE TABLE elmasri.localizacoes_departamento (
                 numero_departamento INTEGER NOT NULL,
                 local VARCHAR(15) NOT NULL,
@@ -77,7 +114,6 @@ CREATE TABLE elmasri.localizacoes_departamento (
 COMMENT ON TABLE localizacoes_departamento IS 'Aqui temos as informações sobre a localização de um departamento.',
 COMMENT ON COLUMN localizacoes_departamento.numero_departamento IS 'Aqui temos o numero do departamento.',
 COMMENT ON COLUMN localizacoes_departamento.local IS 'Aqui temos o local deste departamento.';
-
 
 CREATE TABLE elmasri.funcionario (
                 cpf CHAR(11) NOT NULL,
