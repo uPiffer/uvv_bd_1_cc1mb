@@ -21,18 +21,19 @@ Ficando assim um usuario com senha.
 -- Apos criar o usuario, começei criando o banco de dados:
  
 CREATE DATABASE uvv
-  			OWNER "Gabriel"
+  	OWNER "Gabriel"
         TEMPLATE 'template0'
         ENCODING 'UTF8'
         LC_COLLATE 'pt_BR.UTF-8'
         LC_CTYPE 'pt_BR.UTF-8'
         ALLOW_CONNECTIONS true 
         CONNECTION LIMIT -1;
+	
 
-
+-- Tornei o banco de dados uvv como "default"
 -- Apos isto criei o Schema:
 
-CREATE SCHEMA elmasri AUTHORIZATION Gabriel;
+CREATE SCHEMA elmasri AUTHORIZATION "Gabriel";
 
 -- Continuando, fiz as alterações como dizia no PSET:
 
@@ -50,11 +51,11 @@ CREATE TABLE elmasri.dependente (
                 CONSTRAINT pk_dependente PRIMARY KEY (cpf_funcionario, nome_dependente)
 );
 
-COMMENT ON TABLE dependente IS 'Aqui temos a tabela dos dependetes de cada funcionario.',
-COMMENT ON COLUMN dependente.cpf_funcionario IS 'Aqui temos o cpf do funcionario no qual este dependente é parente.',
-COMMENT ON COLUMN dependente.nome_dependente IS 'Aqui temos o nome do dependente.',
-COMMENT ON COLUMN dependente.sexo IS 'Aqui temos o genero deste dependente.',
-COMMENT ON COLUMN dependente.data_nascimento IS 'Aqui temos a data de nascimento do dependente.',
+COMMENT ON TABLE dependente IS 'Aqui temos a tabela dos dependetes de cada funcionario.';
+COMMENT ON COLUMN dependente.cpf_funcionario IS 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
+COMMENT ON COLUMN dependente.nome_dependente IS 'Aqui temos o nome do dependente.';
+COMMENT ON COLUMN dependente.sexo IS 'Aqui temos o genero deste dependente.';
+COMMENT ON COLUMN dependente.data_nascimento IS 'Aqui temos a data de nascimento do dependente.';
 COMMENT ON COLUMN dependente.parentesco IS 'Aqui temos qual o tipo de parentesco este dependente tem.';
 
 CREATE TABLE elmasri.departamento (
@@ -69,10 +70,10 @@ CREATE UNIQUE INDEX departamento_idx
  ON elmasri.departamento
  ( nome_departamento );
 
-COMMENT ON TABLE departamento IS 'Aqui temos a tabela com informações sobre os departamentos.',
-COMMENT ON COLUMN departamento.numero_departamento IS 'Aqui temos os numeros referentes a cada departamento.',
-COMMENT ON COLUMN departamento.nome_departamento IS 'Aqui temos o nome de um departamento.',
-COMMENT ON COLUMN departamento.cpf_gerente IS 'Aqui temos o cpf do gerente deste departamento.',
+COMMENT ON TABLE departamento IS 'Aqui temos a tabela com informações sobre os departamentos.';
+COMMENT ON COLUMN departamento.numero_departamento IS 'Aqui temos os numeros referentes a cada departamento.';
+COMMENT ON COLUMN departamento.nome_departamento IS 'Aqui temos o nome de um departamento.';
+COMMENT ON COLUMN departamento.cpf_gerente IS 'Aqui temos o cpf do gerente deste departamento.';
 COMMENT ON COLUMN departamento.data_inicio_gerente IS 'Aqui temos a data que o gerente começou.';
 
 CREATE TABLE elmasri.projeto (
@@ -87,10 +88,10 @@ CREATE UNIQUE INDEX projeto_idx
  ON elmasri.projeto
  ( nome_projeto );
 
-COMMENT ON TABLE projeto IS 'Aqui temos a tabela com informações sobre os projetos.',
-COMMENT ON COLUMN projeto.numero_projeto IS 'Aqui temos o numero de um projeto.',
-COMMENT ON COLUMN projeto.nome_projeto IS 'Aqui temos o nome de um projeto.',
-COMMENT ON COLUMN projeto.local_projeto IS 'Aqui temos o local no qual este projeto está.'
+COMMENT ON TABLE projeto IS 'Aqui temos a tabela com informações sobre os projetos.';
+COMMENT ON COLUMN projeto.numero_projeto IS 'Aqui temos o numero de um projeto.';
+COMMENT ON COLUMN projeto.nome_projeto IS 'Aqui temos o nome de um projeto.';
+COMMENT ON COLUMN projeto.local_projeto IS 'Aqui temos o local no qual este projeto está.';
 COMMENT ON COLUMN projeto.numero_departamento IS 'Aqui temos o numero do departamento no qual este projeto faz parte.';
 
 CREATE TABLE elmasri.trabalha_em (
@@ -100,9 +101,9 @@ CREATE TABLE elmasri.trabalha_em (
                 CONSTRAINT pk_trabalha_em PRIMARY KEY (cpf_funcionario, numero_projeto)
 );
 
-COMMENT ON TABLE trabalha_em IS 'Aqui temos a tabela sobre onde um funcionario trabalha.',
-COMMENT ON COLUMN trabalha_em.cpf_funcionario IS 'Aqui temos o cpf de um funcionario.',
-COMMENT ON COLUMN trabalha_em.numero_projeto IS 'Aqui temos o numero do projeto no qual este funcionario trabalha.',
+COMMENT ON TABLE trabalha_em IS 'Aqui temos a tabela sobre onde um funcionario trabalha.';
+COMMENT ON COLUMN trabalha_em.cpf_funcionario IS 'Aqui temos o cpf de um funcionario.';
+COMMENT ON COLUMN trabalha_em.numero_projeto IS 'Aqui temos o numero do projeto no qual este funcionario trabalha.';
 COMMENT ON COLUMN trabalha_em.horas IS 'Aqui temos quantas horas este funcionario trabalha.';
 
 CREATE TABLE elmasri.localizacoes_departamento (
@@ -111,8 +112,8 @@ CREATE TABLE elmasri.localizacoes_departamento (
                 CONSTRAINT pk_localizacoes_departamento PRIMARY KEY (numero_departamento, local)
 );
 
-COMMENT ON TABLE localizacoes_departamento IS 'Aqui temos as informações sobre a localização de um departamento.',
-COMMENT ON COLUMN localizacoes_departamento.numero_departamento IS 'Aqui temos o numero do departamento.',
+COMMENT ON TABLE localizacoes_departamento IS 'Aqui temos as informações sobre a localização de um departamento.';
+COMMENT ON COLUMN localizacoes_departamento.numero_departamento IS 'Aqui temos o numero do departamento.';
 COMMENT ON COLUMN localizacoes_departamento.local IS 'Aqui temos o local deste departamento.';
 
 CREATE TABLE elmasri.funcionario (
@@ -129,20 +130,20 @@ CREATE TABLE elmasri.funcionario (
                 CONSTRAINT pk_funcionario PRIMARY KEY (cpf)
 );
 
-COMMENT ON TABLE funcionario IS 'Aqui temos as informações sobre um funcionario.',
-COMMENT ON COLUMN funcionario.cpf IS 'Aqui temos o cpf de um funcionario.',
-COMMENT ON COLUMN funcionario.primeiro_nome IS 'Aqui temos o primeiro nome de um funcionario.',
-COMMENT ON COLUMN funcionario.nome_meio IS 'Aqui temos o nome do meio de um funcionario.',
-COMMENT ON COLUMN funcionario.ultimo_nome IS 'Aqui temos o ultimo nome de um funcionario.',
-COMMENT ON COLUMN funcionario.data_nascimento IS 'Aqui temos a data de nascimento de um funcionario.',
-COMMENT ON COLUMN funcionario.endereco IS 'Aqui temos o endereço deste funcionario.',
-COMMENT ON COLUMN funcionario.sexo IS 'Aqui temos o genero deste funcionario.',
-COMMENT ON COLUMN funcionario.salario IS 'Aqui temos o salario deste funcionario',
-COMMENT ON COLUMN funcionario.cpf_supervisor IS 'Aqui temos o cpf do supervisor deste funcionario.',
+COMMENT ON TABLE funcionario IS 'Aqui temos as informações sobre um funcionario.';
+COMMENT ON COLUMN funcionario.cpf IS 'Aqui temos o cpf de um funcionario.';
+COMMENT ON COLUMN funcionario.primeiro_nome IS 'Aqui temos o primeiro nome de um funcionario.';
+COMMENT ON COLUMN funcionario.nome_meio IS 'Aqui temos o nome do meio de um funcionario.';
+COMMENT ON COLUMN funcionario.ultimo_nome IS 'Aqui temos o ultimo nome de um funcionario.';
+COMMENT ON COLUMN funcionario.data_nascimento IS 'Aqui temos a data de nascimento de um funcionario.';
+COMMENT ON COLUMN funcionario.endereco IS 'Aqui temos o endereço deste funcionario.';
+COMMENT ON COLUMN funcionario.sexo IS 'Aqui temos o genero deste funcionario.';
+COMMENT ON COLUMN funcionario.salario IS 'Aqui temos o salario deste funcionario';
+COMMENT ON COLUMN funcionario.cpf_supervisor IS 'Aqui temos o cpf do supervisor deste funcionario.';
 COMMENT ON COLUMN funcionario.numero_departamento IS 'Aqui temos o numero do departamento no qual este funcionario faz parte.';
 
 INSERT INTO funcionario VALUES
-(88866555576, 'Jorge', 'E', 'Brito', '1937-11-10', 'Rua do Horto,35,São Paulo,SP' 'M', 55000, 88866555576, 1),
+(88866555576, 'Jorge', 'E', 'Brito', '1937-11-10', 'Rua do Horto,35,São Paulo,SP', 'M', 55000, 88866555576, 1),
 (33344555587, 'Fernando', 'T', 'Wong', '1955-12-08', 'Rua da Lapa,34,São Paulo,SP', 'M', 40000.00, 88866555576, 5),
 (98765432168, 'Jennifer' ,'S', 'Souza', '1941-06-20', 'Av.Arthur de Lima,54,Santo André,SP', 'F', 43000.00, 88866555576 ,4),
 (12345678966, 'João', 'B', 'Silva', '1965-01-09', 'Rua das Flores,751,São Paulo,SP', 'M', 30000.00, 33344555587, 5),
