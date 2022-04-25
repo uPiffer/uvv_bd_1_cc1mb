@@ -17,6 +17,8 @@ CREATE DATABASE uvv;
 
 -- Tornei o banco de dados uvv como "default"
 
+-- Logo apos começei a criação das tabelas
+
 CREATE TABLE funcionario (
                 cpf CHAR(11) NOT NULL,
                 primeiro_nome VARCHAR(15) NOT NULL,
@@ -82,6 +84,8 @@ CREATE TABLE localizacoes_departamento (
                 PRIMARY KEY (numero_departamento, local)
 );
 
+-- Apos a criação das tabelas, começei a colocar os comentarios em cada tabela e em cada coluna.
+
 ALTER TABLE uvv.dependente COMMENT='Aqui temos a tabela dos dependetes de cada funcionario.';
 ALTER TABLE dependente MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
 ALTER TABLE dependente MODIFY COLUMN nome_dependente VARCHAR(15) COMMENT 'Aqui temos o nome do dependente.';
@@ -121,6 +125,8 @@ ALTER TABLE funcionario MODIFY COLUMN sexo CHAR(1) COMMENT 'Aqui temos o genero 
 ALTER TABLE funcionario MODIFY COLUMN salario DECIMAL(10, 2) COMMENT 'Aqui temos o salario deste funcionario';
 ALTER TABLE funcionario MODIFY COLUMN cpf_supervisor CHAR(11) COMMENT 'Aqui temos o cpf do supervisor deste funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento no qual este funcionario faz parte.';
+
+-- Apos terminar de colocar os comentarios, começei a colocar os valores em cada tabela.
 
 INSERT INTO funcionario VALUES
 	(12345678966, 'João', 'B', 'Silva', '1965-01-09', 'Rua das Flores, 751, São Paulo, SP', 'M', 30000, 33344555587, 5),
@@ -179,6 +185,8 @@ INSERT INTO trabalha_em VALUES
 	(98765432168, 20, 15), 
 	(88866555576, 20, 0); 
 
+-- E por ultimo coloquei as "Constraints"
+
 ALTER TABLE funcionario ADD CONSTRAINT funcionario_funcionario_fk
 FOREIGN KEY (cpf_supervisor)
 REFERENCES funcionario (cpf)
@@ -220,6 +228,8 @@ FOREIGN KEY (numero_projeto)
 REFERENCES projeto (numero_projeto)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+-- Obrigado por ver ate o final, foi uma experiência incrivel fazer este PSET, a experiência de se criar do zero um banco de dados com as tabelas realmente é incrivel.
 
 
 
