@@ -1,23 +1,23 @@
-/* Começei entrando no Dbeaver utilizando o usuario padrão: usuario: root senha: computacao@raiz
-Apos isto abri o console do Dbeaver e utilizei ele para criar meu usuario:
+/* Começei entrando no Dbeaver utilizando o usuário padrão: usuario: root senha: computacao@raiz
+Apos isto abri o console do Dbeaver e utilizei ele para criar meu usuário:
 
 CREATE USER 'gabriel'@'localhost' IDENTIFIED BY '123456';
 
-Ficando assim um usuario com senha.
+Ficando assim um usuário com senha.
 
-Coloquei em meu usuario todas as permissões:
+Coloquei em meu usuário todas as permissões:
 
 GRANT ALL PRIVILEGES ON * . * TO 'Gabriel'@'localhost';
 
 */
 
--- Apos isto começei a criar o banco de dados:
+-- Após isto começei a criar o banco de dados:
 
 CREATE DATABASE uvv;
 
 -- Tornei o banco de dados uvv como "default"
 
--- Logo apos começei a criação das tabelas
+-- Logo após começei a criação das tabelas
 
 CREATE TABLE funcionario (
                 cpf CHAR(11) NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE localizacoes_departamento (
                 PRIMARY KEY (numero_departamento, local)
 );
 
--- Apos a criação das tabelas, começei a colocar os comentarios em cada tabela e em cada coluna.
+-- Após a criação das tabelas, começei a colocar os comentários em cada tabela e em cada coluna.
 
 ALTER TABLE uvv.dependente COMMENT='Aqui temos a tabela dos dependetes de cada funcionario.';
 ALTER TABLE dependente MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
@@ -126,7 +126,7 @@ ALTER TABLE funcionario MODIFY COLUMN salario DECIMAL(10, 2) COMMENT 'Aqui temos
 ALTER TABLE funcionario MODIFY COLUMN cpf_supervisor CHAR(11) COMMENT 'Aqui temos o cpf do supervisor deste funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento no qual este funcionario faz parte.';
 
--- Apos terminar de colocar os comentarios, começei a colocar os valores em cada tabela.
+-- Após terminar de colocar os comentários, começei a colocar os valores em cada tabela.
 
 INSERT INTO funcionario VALUES
 	(12345678966, 'João', 'B', 'Silva', '1965-01-09', 'Rua das Flores, 751, São Paulo, SP', 'M', 30000, 33344555587, 5),
@@ -185,7 +185,7 @@ INSERT INTO trabalha_em VALUES
 	(98765432168, 20, 15), 
 	(88866555576, 20, 0); 
 
--- E por ultimo coloquei as "Constraints"
+-- E por último coloquei as "Constraints"
 
 ALTER TABLE funcionario ADD CONSTRAINT funcionario_funcionario_fk
 FOREIGN KEY (cpf_supervisor)
@@ -229,7 +229,7 @@ REFERENCES projeto (numero_projeto)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
--- Obrigado por ver ate o final, foi uma experiência incrivel fazer este PSET, a experiência de se criar do zero um banco de dados com as tabelas realmente é incrivel.
+-- Obrigado por ver até o final, foi uma experiência incrivel fazer este PSET, a experiência de se criar do zero um banco de dados com as tabelas realmente é incrivel.
 
 
 
