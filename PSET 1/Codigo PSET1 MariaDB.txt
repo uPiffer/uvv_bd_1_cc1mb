@@ -1,15 +1,15 @@
 /* Começei entrando no Dbeaver utilizando o usuário padrão: usuario: root senha: computacao@raiz
 Apos isto abri o console do Dbeaver e utilizei ele para criar meu usuário:
+*/
 
 CREATE USER 'gabriel'@'localhost' IDENTIFIED BY '123456';
 
-Ficando assim um usuário com senha.
+-- Ficando assim um usuário com senha.
 
-Coloquei em meu usuário todas as permissões:
+-- Coloquei em meu usuário todas as permissões:
 
 GRANT ALL PRIVILEGES ON * . * TO 'Gabriel'@'localhost';
 
-*/
 
 -- Após isto começei a criar o banco de dados:
 
