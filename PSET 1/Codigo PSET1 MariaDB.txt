@@ -1,3 +1,37 @@
+/* Começei entrando no Dbeaver utilizando o usuario padrão: usuario: root senha: computacao@raiz
+Apos isto abri o console do Dbeaver e utilizei ele para criar meu usuario:
+
+CREATE USER 'gabriel'@'localhost' IDENTIFIED BY '123456';
+
+Ficando assim um usuario com senha.
+
+Coloquei em meu usuario todas as permissões:
+
+GRANT ALL PRIVILEGES ON * . * TO 'Gabriel'@'localhost';
+
+*/
+
+-- Apos isto começei a criar o banco de dados:
+
+CREATE DATABASE uvv;
+
+-- Tornei o banco de dados uvv como "default"
+
+CREATE TABLE funcionario (
+                cpf CHAR(11) NOT NULL,
+                primeiro_nome VARCHAR(15) NOT NULL,
+                nome_meio CHAR(1),
+                ultimo_nome VARCHAR(15) NOT NULL,
+                data_nascimento DATE,
+                endereco VARCHAR(100),
+                sexo CHAR(1),
+                salario DECIMAL(10,2),
+                cpf_supervisor CHAR(11) NOT NULL,
+                numero_departamento INT NOT NULL,
+                PRIMARY KEY (cpf)
+);
+
+
 CREATE TABLE dependente (
                 cpf_funcionario CHAR(11) NOT NULL,
                 nome_dependente VARCHAR(15) NOT NULL,
@@ -7,12 +41,6 @@ CREATE TABLE dependente (
                 PRIMARY KEY (cpf_funcionario, nome_dependente)
 );
 
-ALTER TABLE uvv.dependente COMMENT='Aqui temos a tabela dos dependetes de cada funcionario.';
-ALTER TABLE dependente MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
-ALTER TABLE dependente MODIFY COLUMN nome_dependente VARCHAR(15) COMMENT 'Aqui temos o nome do dependente.';
-ALTER TABLE dependente MODIFY COLUMN sexo CHAR(1) COMMENT 'Aqui temos o genero deste dependente.';
-ALTER TABLE dependente MODIFY COLUMN data_nascimento DATE COMMENT 'Aqui temos a data de nascimento do dependente.';
-ALTER TABLE dependente MODIFY COLUMN parentesco VARCHAR(15) COMMENT 'Aqui temos qual o tipo de parentesco este dependente tem.';
 
 CREATE TABLE departamento (
                 numero_departamento INT NOT NULL,
@@ -22,17 +50,12 @@ CREATE TABLE departamento (
                 PRIMARY KEY (numero_departamento)
 );
 
+
 CREATE UNIQUE INDEX departamento_idx
  ON departamento
  ( nome_departamento );
 
-ALTER TABLE uvv.departamento COMMENT='Aqui temos a tabela com informações sobre os departamentos.';
-ALTER TABLE departamento MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos os numeros referentes a cada departamento.';
-ALTER TABLE departamento MODIFY COLUMN nome_departamento VARCHAR(15) COMMENT 'Aqui temos o nome de um departamento.';
-ALTER TABLE departamento MODIFY COLUMN cpf_gerente CHAR(11) COMMENT 'Aqui temos o cpf do gerente deste departamento.';
-ALTER TABLE departamento MODIFY COLUMN data_inicio_gerente DATE COMMENT 'Aqui temos a data que o gerente começou.';
-
-CREATE TABLE projeto (
+CREATE TABLE uvv.projeto (
                 numero_projeto INT NOT NULL,
                 nome_projeto VARCHAR(15) NOT NULL,
                 local_projeto VARCHAR(15),
@@ -40,15 +63,10 @@ CREATE TABLE projeto (
                 PRIMARY KEY (numero_projeto)
 );
 
+
 CREATE UNIQUE INDEX projeto_idx
  ON projeto
  ( nome_projeto );
-
-ALTER TABLE uvv.projeto COMMENT='Aqui temos a tabela com informações sobre os projetos.';
-ALTER TABLE projeto MODIFY COLUMN numero_projeto INTEGER COMMENT 'Aqui temos o numero de um projeto.';
-ALTER TABLE projeto MODIFY COLUMN nome_projeto VARCHAR(15) COMMENT 'Aqui temos o nome de um projeto.';
-ALTER TABLE projeto MODIFY COLUMN local_projeto VARCHAR(15) COMMENT 'Aqui temos o local no qual este projeto está.';
-ALTER TABLE projeto MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento no qual este projeto faz parte.';
 
 CREATE TABLE trabalha_em (
                 cpf_funcionario CHAR(11) NOT NULL,
@@ -57,10 +75,6 @@ CREATE TABLE trabalha_em (
                 PRIMARY KEY (cpf_funcionario, numero_projeto)
 );
 
-ALTER TABLE uvv.trabalha_em COMMENT='Aqui temos a tabela sobre onde um funcionario trabalha.';
-ALTER TABLE trabalha_em MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf de um funcionario.';
-ALTER TABLE trabalha_em MODIFY COLUMN numero_projeto INTEGER COMMENT 'Aqui temos o numero do projeto no qual este funcionario trabalha.';
-ALTER TABLE trabalha_em MODIFY COLUMN horas DECIMAL(3,1) COMMENT 'Aqui temos quantas horas este funcionario trabalha.';
 
 CREATE TABLE localizacoes_departamento (
                 numero_departamento INT NOT NULL,
@@ -68,23 +82,33 @@ CREATE TABLE localizacoes_departamento (
                 PRIMARY KEY (numero_departamento, local)
 );
 
+ALTER TABLE uvv.dependente COMMENT='Aqui temos a tabela dos dependetes de cada funcionario.';
+ALTER TABLE dependente MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
+ALTER TABLE dependente MODIFY COLUMN nome_dependente VARCHAR(15) COMMENT 'Aqui temos o nome do dependente.';
+ALTER TABLE dependente MODIFY COLUMN sexo CHAR(1) COMMENT 'Aqui temos o genero deste dependente.';
+ALTER TABLE dependente MODIFY COLUMN data_nascimento DATE COMMENT 'Aqui temos a data de nascimento do dependente.';
+ALTER TABLE dependente MODIFY COLUMN parentesco VARCHAR(15) COMMENT 'Aqui temos qual o tipo de parentesco este dependente tem.';
+
+ALTER TABLE uvv.departamento COMMENT='Aqui temos a tabela com informações sobre os departamentos.';
+ALTER TABLE departamento MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos os numeros referentes a cada departamento.';
+ALTER TABLE departamento MODIFY COLUMN nome_departamento VARCHAR(15) COMMENT 'Aqui temos o nome de um departamento.';
+ALTER TABLE departamento MODIFY COLUMN cpf_gerente CHAR(11) COMMENT 'Aqui temos o cpf do gerente deste departamento.';
+ALTER TABLE departamento MODIFY COLUMN data_inicio_gerente DATE COMMENT 'Aqui temos a data que o gerente começou.';
+
+ALTER TABLE uvv.projeto COMMENT='Aqui temos a tabela com informações sobre os projetos.';
+ALTER TABLE projeto MODIFY COLUMN numero_projeto INTEGER COMMENT 'Aqui temos o numero de um projeto.';
+ALTER TABLE projeto MODIFY COLUMN nome_projeto VARCHAR(15) COMMENT 'Aqui temos o nome de um projeto.';
+ALTER TABLE projeto MODIFY COLUMN local_projeto VARCHAR(15) COMMENT 'Aqui temos o local no qual este projeto está.';
+ALTER TABLE projeto MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento no qual este projeto faz parte.';
+
+ALTER TABLE uvv.trabalha_em COMMENT='Aqui temos a tabela sobre onde um funcionario trabalha.';
+ALTER TABLE trabalha_em MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf de um funcionario.';
+ALTER TABLE trabalha_em MODIFY COLUMN numero_projeto INTEGER COMMENT 'Aqui temos o numero do projeto no qual este funcionario trabalha.';
+ALTER TABLE trabalha_em MODIFY COLUMN horas DECIMAL(3,1) COMMENT 'Aqui temos quantas horas este funcionario trabalha.';
+
 ALTER TABLE uvv.localizacoes_departamento COMMENT='Aqui temos as informações sobre a localização de um departamento.';
 ALTER TABLE localizacoes_departamento MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento.';
 ALTER TABLE localizacoes_departamento MODIFY COLUMN local VARCHAR(15) COMMENT 'Aqui temos o local deste departamento.';
-
-CREATE TABLE funcionario ( 
-                cpf CHAR(11) NOT NULL, 
-                primeiro_nome VARCHAR(15) NOT NULL, 
-                nome_meio CHAR(1), 
-                ultimo_nome VARCHAR(15) NOT NULL, 
-                data_nascimento DATE, 
-                endereco VARCHAR(100), 
-                sexo CHAR(1), 
-                salario DECIMAL(10,2), 
-                cpf_supervisor CHAR(11) NOT NULL, 
-                numero_departamento INT NOT NULL, 
-                PRIMARY KEY (cpf) 
-);
 
 ALTER TABLE uvv.funcionario COMMENT='Aqui temos as informações sobre um funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN cpf CHAR(11) COMMENT 'Aqui temos o cpf de um funcionario.';
@@ -92,7 +116,7 @@ ALTER TABLE funcionario MODIFY COLUMN primeiro_nome VARCHAR(15) COMMENT 'Aqui te
 ALTER TABLE funcionario MODIFY COLUMN nome_meio CHAR(1) COMMENT 'Aqui temos o nome do meio de um funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN ultimo_nome VARCHAR(15) COMMENT 'Aqui temos o ultimo nome de um funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN data_nascimento DATE COMMENT 'Aqui temos a data de nascimento de um funcionario.';
-ALTER TABLE funcionario MODIFY COLUMN endereco VARCHAR(99) COMMENT 'Aqui temos o endereço deste funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN endereco VARCHAR(100) COMMENT 'Aqui temos o endereço deste funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN sexo CHAR(1) COMMENT 'Aqui temos o genero deste funcionario.';
 ALTER TABLE funcionario MODIFY COLUMN salario DECIMAL(10, 2) COMMENT 'Aqui temos o salario deste funcionario';
 ALTER TABLE funcionario MODIFY COLUMN cpf_supervisor CHAR(11) COMMENT 'Aqui temos o cpf do supervisor deste funcionario.';
@@ -185,7 +209,7 @@ REFERENCES departamento (numero_departamento)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
 
-ALTER TABLE localizacoes_departamento ADD CONSTRAINT departamento_localizacoes_departamento_fk
+ALTER TABLE projeto ADD CONSTRAINT departamento_projeto_fk
 FOREIGN KEY (numero_departamento)
 REFERENCES departamento (numero_departamento)
 ON DELETE NO ACTION
@@ -196,6 +220,9 @@ FOREIGN KEY (numero_projeto)
 REFERENCES projeto (numero_projeto)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION;
+
+
+
 
 
 
