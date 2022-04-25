@@ -1,5 +1,6 @@
 /* Começei entrando no Dbeaver utilizando o usuário padrão: usuario: postgres senha: computacao@raiz
 Após isto abri o console do Dbeaver e utilizei ele para criar meu usuário:
+*/
 
 CREATE ROLE "Gabriel" WITH 
 	SUPERUSER
@@ -11,12 +12,12 @@ CREATE ROLE "Gabriel" WITH
 	NOBYPASSRLS
 	CONNECTION LIMIT -1;
   
-Até ai so tinha criado o usuário, ele estava sem a senha, então utilizei o comando:
+-- Até ai so tinha criado o usuário, ele estava sem a senha, então utilizei o comando:
  
 ALTER USER "Gabriel" PASSWORD '123456';
  
-Ficando assim um usuário com senha. 
-*/
+-- Ficando assim um usuário com senha. 
+
 
 -- Após criar o usuário, começei criando o banco de dados:
  
