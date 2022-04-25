@@ -1,0 +1,204 @@
+CREATE TABLE dependente (
+                cpf_funcionario CHAR(11) NOT NULL,
+                nome_dependente VARCHAR(15) NOT NULL,
+                sexo CHAR(1),
+                data_nascimento DATE,
+                parentesco VARCHAR(15),
+                PRIMARY KEY (cpf_funcionario, nome_dependente)
+);
+
+ALTER TABLE uvv.dependente COMMENT='Aqui temos a tabela dos dependetes de cada funcionario.';
+ALTER TABLE dependente MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
+ALTER TABLE dependente MODIFY COLUMN nome_dependente VARCHAR(15) COMMENT 'Aqui temos o nome do dependente.';
+ALTER TABLE dependente MODIFY COLUMN sexo CHAR(1) COMMENT 'Aqui temos o genero deste dependente.';
+ALTER TABLE dependente MODIFY COLUMN data_nascimento DATE COMMENT 'Aqui temos a data de nascimento do dependente.';
+ALTER TABLE dependente MODIFY COLUMN parentesco VARCHAR(15) COMMENT 'Aqui temos qual o tipo de parentesco este dependente tem.';
+
+CREATE TABLE departamento (
+                numero_departamento INT NOT NULL,
+                nome_departamento VARCHAR(15) NOT NULL,
+                cpf_gerente CHAR(11) NOT NULL,
+                data_inicio_gerente DATE,
+                PRIMARY KEY (numero_departamento)
+);
+
+CREATE UNIQUE INDEX departamento_idx
+ ON departamento
+ ( nome_departamento );
+
+ALTER TABLE uvv.departamento COMMENT='Aqui temos a tabela com informações sobre os departamentos.';
+ALTER TABLE departamento MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos os numeros referentes a cada departamento.';
+ALTER TABLE departamento MODIFY COLUMN nome_departamento VARCHAR(15) COMMENT 'Aqui temos o nome de um departamento.';
+ALTER TABLE departamento MODIFY COLUMN cpf_gerente CHAR(11) COMMENT 'Aqui temos o cpf do gerente deste departamento.';
+ALTER TABLE departamento MODIFY COLUMN data_inicio_gerente DATE COMMENT 'Aqui temos a data que o gerente começou.';
+
+CREATE TABLE projeto (
+                numero_projeto INT NOT NULL,
+                nome_projeto VARCHAR(15) NOT NULL,
+                local_projeto VARCHAR(15),
+                numero_departamento INT NOT NULL,
+                PRIMARY KEY (numero_projeto)
+);
+
+CREATE UNIQUE INDEX projeto_idx
+ ON projeto
+ ( nome_projeto );
+
+ALTER TABLE uvv.projeto COMMENT='Aqui temos a tabela com informações sobre os projetos.';
+ALTER TABLE projeto MODIFY COLUMN numero_projeto INTEGER COMMENT 'Aqui temos o numero de um projeto.';
+ALTER TABLE projeto MODIFY COLUMN nome_projeto VARCHAR(15) COMMENT 'Aqui temos o nome de um projeto.';
+ALTER TABLE projeto MODIFY COLUMN local_projeto VARCHAR(15) COMMENT 'Aqui temos o local no qual este projeto está.';
+ALTER TABLE projeto MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento no qual este projeto faz parte.';
+
+CREATE TABLE trabalha_em (
+                cpf_funcionario CHAR(11) NOT NULL,
+                numero_projeto INT NOT NULL,
+                horas DECIMAL(3,1) NOT NULL,
+                PRIMARY KEY (cpf_funcionario, numero_projeto)
+);
+
+ALTER TABLE uvv.trabalha_em COMMENT='Aqui temos a tabela sobre onde um funcionario trabalha.';
+ALTER TABLE trabalha_em MODIFY COLUMN cpf_funcionario CHAR(11) COMMENT 'Aqui temos o cpf de um funcionario.';
+ALTER TABLE trabalha_em MODIFY COLUMN numero_projeto INTEGER COMMENT 'Aqui temos o numero do projeto no qual este funcionario trabalha.';
+ALTER TABLE trabalha_em MODIFY COLUMN horas DECIMAL(3,1) COMMENT 'Aqui temos quantas horas este funcionario trabalha.';
+
+CREATE TABLE localizacoes_departamento (
+                numero_departamento INT NOT NULL,
+                local VARCHAR(15) NOT NULL,
+                PRIMARY KEY (numero_departamento, local)
+);
+
+ALTER TABLE uvv.localizacoes_departamento COMMENT='Aqui temos as informações sobre a localização de um departamento.';
+ALTER TABLE localizacoes_departamento MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento.';
+ALTER TABLE localizacoes_departamento MODIFY COLUMN local VARCHAR(15) COMMENT 'Aqui temos o local deste departamento.';
+
+CREATE TABLE funcionario ( 
+                cpf CHAR(11) NOT NULL, 
+                primeiro_nome VARCHAR(15) NOT NULL, 
+                nome_meio CHAR(1), 
+                ultimo_nome VARCHAR(15) NOT NULL, 
+                data_nascimento DATE, 
+                endereco VARCHAR(100), 
+                sexo CHAR(1), 
+                salario DECIMAL(10,2), 
+                cpf_supervisor CHAR(11) NOT NULL, 
+                numero_departamento INT NOT NULL, 
+                PRIMARY KEY (cpf) 
+);
+
+ALTER TABLE uvv.funcionario COMMENT='Aqui temos as informações sobre um funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN cpf CHAR(11) COMMENT 'Aqui temos o cpf de um funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN primeiro_nome VARCHAR(15) COMMENT 'Aqui temos o primeiro nome de um funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN nome_meio CHAR(1) COMMENT 'Aqui temos o nome do meio de um funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN ultimo_nome VARCHAR(15) COMMENT 'Aqui temos o ultimo nome de um funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN data_nascimento DATE COMMENT 'Aqui temos a data de nascimento de um funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN endereco VARCHAR(99) COMMENT 'Aqui temos o endereço deste funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN sexo CHAR(1) COMMENT 'Aqui temos o genero deste funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN salario DECIMAL(10, 2) COMMENT 'Aqui temos o salario deste funcionario';
+ALTER TABLE funcionario MODIFY COLUMN cpf_supervisor CHAR(11) COMMENT 'Aqui temos o cpf do supervisor deste funcionario.';
+ALTER TABLE funcionario MODIFY COLUMN numero_departamento INTEGER COMMENT 'Aqui temos o numero do departamento no qual este funcionario faz parte.';
+
+INSERT INTO funcionario VALUES
+	(12345678966, 'João', 'B', 'Silva', '1965-01-09', 'Rua das Flores, 751, São Paulo, SP', 'M', 30000, 33344555587, 5),
+	(33344555587, 'Fernando', 'T', 'Wong', '1955-12-08', 'Rua da Lapa, 34, São Paulo, SP', 'M', 40000, 88866555576, 5),
+	(99988777767, 'Alice', 'J', 'Zelaya', '1968-01-19', 'Rua Souza Lima, 35, Curitiba, PR', 'F', 25000, 98765432168, 4),
+	(98765432168, 'Jennifer', 'S', 'Souza', '1941-06-20', 'Av. Arthur de Lima, 54, Santo André, SP', 'F', 43000, 88866555576, 4),
+	(66688444476, 'Ronaldo', 'K', 'Lima', '1962-09-15', 'Rua Rebouças, 65, Piracicaba, SP', 'M', 38000, 33344555587, 5),
+	(45345345376, 'Joice', 'A', 'Leite', '1972-07-31', 'Av. Lucas Obes, 74, São Paulo, SP', 'F', 25000, 33344555587, 5),
+	(98798798733, 'André', 'V', 'Pereira', '1969-03-29', 'Rua Timbira, 35, São Paulo, SP', 'M', 25000, 98765432168, 4),
+	(88866555576, 'Jorge', 'E', 'Brito', '1937-11-10', 'Rua do Horto, 35, São Paulo, SP', 'M', 55000, 88866555576, 1);
+
+INSERT INTO departamento VALUES
+	(5, 'Pesqusia', 33344555587, '1988-05-22'), 
+	(4, 'Administração', 98765432168, '1995-01-01'),
+	(1, 'Matriz', 88866555576, '1981-06-19');
+
+INSERT INTO localizacoes_departamento VALUES
+	(1, 'São Paulo'), 
+	(4, 'Mauá'), 
+	(5, 'Santo André'), 
+	(5, 'Itu'), 
+	(5, 'São Paulo');
+
+INSERT INTO projeto VALUES
+	(1, 'ProdutoX', 'Santo André', 5), 
+	(2, 'ProdutoY', 'Itu', 5), 
+	(3, 'ProdutoZ', 'São Paulo', 5), 
+	(10, 'Informatização', 'Mauá', 4), 
+	(20, 'Reorganiazãço', 'São Paulo', 1), 
+	(30, 'Novosbenefícios', 'Mauá', 4);
+
+INSERT INTO dependente VALUES
+	(33344555587, 'Alicia', 'F', '1986-04-05', 'Filha'), 
+	(33344555587, 'Tiago', 'M', '1983-10-25', 'Filho'), 
+	(33344555587, 'Janaína', 'F', '1958-05-03', 'Esposa'), 
+	(98765432168, 'Antonio', 'M', '1942-02-28', 'Marido'), 
+	(12345678966, 'Michael', 'M', '1988-01-04', 'Filho'), 
+	(12345678966, 'Alicia', 'F', '1988-12-30', 'Filha'), 
+	(12345678966, 'Elizabeth', 'F', '1967-05-05', 'Esposa'); 
+
+INSERT INTO trabalha_em VALUES
+	(12345678966, 1, 32.5), 
+	(12345678966, 2, 7.5), 
+	(66688444476, 3, 40), 
+	(45345345376, 1, 20), 
+	(45345345376, 2, 20), 
+	(33344555587, 2, 10), 
+	(33344555587, 3, 10), 
+	(33344555587, 10, 10), 
+	(33344555587, 20, 10), 
+	(99988777767, 30, 30), 
+	(99988777767, 10, 10), 
+	(98798798733, 10, 35), 
+	(98798798733, 30, 5), 
+	(98765432168, 30, 20), 
+	(98765432168, 20, 15), 
+	(88866555576, 20, 0); 
+
+ALTER TABLE funcionario ADD CONSTRAINT funcionario_funcionario_fk
+FOREIGN KEY (cpf_supervisor)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE departamento ADD CONSTRAINT funcionario_departamento_fk
+FOREIGN KEY (cpf_gerente)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE trabalha_em ADD CONSTRAINT funcionario_trabalha_em_fk
+FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE dependente ADD CONSTRAINT funcionario_dependente_fk
+FOREIGN KEY (cpf_funcionario)
+REFERENCES funcionario (cpf)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE localizacoes_departamento ADD CONSTRAINT departamento_localizacoes_departamento_fk
+FOREIGN KEY (numero_departamento)
+REFERENCES departamento (numero_departamento)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE localizacoes_departamento ADD CONSTRAINT departamento_localizacoes_departamento_fk
+FOREIGN KEY (numero_departamento)
+REFERENCES departamento (numero_departamento)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE trabalha_em ADD CONSTRAINT projeto_trabalha_em_fk
+FOREIGN KEY (numero_projeto)
+REFERENCES projeto (numero_projeto)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+
+
+
+
+
