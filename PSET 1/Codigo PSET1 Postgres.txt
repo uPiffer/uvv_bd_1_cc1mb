@@ -1,5 +1,5 @@
-/* Começei entrando no Dbeaver utilizando o usuario padrão: usuario: postgres senha: computacao@raiz
-Apos isto abri o console do Dbeaver e utilizei ele para criar meu usuario:
+/* Começei entrando no Dbeaver utilizando o usuário padrão: usuario: postgres senha: computacao@raiz
+Após isto abri o console do Dbeaver e utilizei ele para criar meu usuário:
 
 CREATE ROLE "Gabriel" WITH 
 	SUPERUSER
@@ -11,14 +11,14 @@ CREATE ROLE "Gabriel" WITH
 	NOBYPASSRLS
 	CONNECTION LIMIT -1;
   
-Até ai so tinha criado o usuario, ele estava sem a senha, então utilizei o comando:
+Até ai so tinha criado o usuário, ele estava sem a senha, então utilizei o comando:
  
 ALTER USER "Gabriel" PASSWORD '123456';
  
-Ficando assim um usuario com senha. 
+Ficando assim um usuário com senha. 
 */
 
--- Apos criar o usuario, começei criando o banco de dados:
+-- Após criar o usuário, começei criando o banco de dados:
  
 CREATE DATABASE uvv
   	OWNER "Gabriel"
@@ -31,7 +31,7 @@ CREATE DATABASE uvv
 	
 
 -- Tornei o banco de dados uvv como "default"
--- Apos isto criei o Schema:
+-- Após isto criei o Schema:
 
 CREATE SCHEMA elmasri AUTHORIZATION "Gabriel";
 
@@ -39,7 +39,7 @@ CREATE SCHEMA elmasri AUTHORIZATION "Gabriel";
 
 SET SEARCH_PATH TO elmasri, "$user", public;
 
--- Logo apos começei a criação das tabelas
+-- Logo após começei a criação das tabelas
 
   
 CREATE TABLE elmasri.dependente (
@@ -51,7 +51,7 @@ CREATE TABLE elmasri.dependente (
                 CONSTRAINT pk_dependente PRIMARY KEY (cpf_funcionario, nome_dependente)
 );
 
--- Apos a criação de cada tabela, eu fui adiconando o seu devido comentario.
+-- Após a criação de cada tabela, eu fui adiconando o seu devido comentário.
 
 COMMENT ON TABLE dependente IS 'Aqui temos a tabela dos dependetes de cada funcionario.';
 COMMENT ON COLUMN dependente.cpf_funcionario IS 'Aqui temos o cpf do funcionario no qual este dependente é parente.';
@@ -144,7 +144,7 @@ COMMENT ON COLUMN funcionario.salario IS 'Aqui temos o salario deste funcionario
 COMMENT ON COLUMN funcionario.cpf_supervisor IS 'Aqui temos o cpf do supervisor deste funcionario.';
 COMMENT ON COLUMN funcionario.numero_departamento IS 'Aqui temos o numero do departamento no qual este funcionario faz parte.';
 
--- Apos terminar de criar as tabelas e colocar os comentarios, começei a adicionar os valores em cada tabela.
+-- Após terminar de criar as tabelas e colocar os comentários, começei a adicionar os valores em cada tabela.
 
 INSERT INTO funcionario VALUES
 (88866555576, 'Jorge', 'E', 'Brito', '1937-11-10', 'Rua do Horto,35,São Paulo,SP', 'M', 55000, 88866555576, 1),
@@ -203,7 +203,7 @@ INSERT INTO trabalha_em VALUES
 (98765432168, 20, 15.0),
 (88866555576, 20, 0.0);
 
--- E por ultimo coloquei as "Constraints"
+-- E por último coloquei as "Constraints"
 
 ALTER TABLE elmasri.funcionario ADD CONSTRAINT funcionario_funcionario_fk
 FOREIGN KEY (cpf_supervisor)
@@ -254,7 +254,7 @@ ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
 
--- Obrigado por ver ate o final, foi uma experiência incrivel fazer este PSET, a experiência de se criar do zero um banco de dados com as tabelas realmente é incrivel.
+-- Obrigado por ver até o final, foi uma experiência incrivel fazer este PSET, a experiência de se criar do zero um banco de dados com as tabelas realmente é incrivel.
 
 
 
