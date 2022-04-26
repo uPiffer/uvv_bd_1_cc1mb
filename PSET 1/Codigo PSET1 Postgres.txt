@@ -32,6 +32,9 @@ CREATE DATABASE uvv
 	
 
 -- Tornei o banco de dados uvv como "default"
+
+USE uvv;
+
 -- Após isto criei o Schema:
 
 CREATE SCHEMA elmasri AUTHORIZATION "Gabriel";
