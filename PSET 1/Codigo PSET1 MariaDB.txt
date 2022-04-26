@@ -17,6 +17,8 @@ CREATE DATABASE uvv;
 
 -- Tornei o banco de dados uvv como "default"
 
+USE uvv;
+
 -- Logo após começei a criação das tabelas
 
 CREATE TABLE funcionario (
