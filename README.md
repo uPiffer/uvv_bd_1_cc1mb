@@ -1,4 +1,4 @@
-# PSET 1 Banco de Dados
+# PSET Banco de Dados
 
 ### Professor: Abrantes Araújo Silva Filho
 ### Monitora: Suellen Miranda Amorim
