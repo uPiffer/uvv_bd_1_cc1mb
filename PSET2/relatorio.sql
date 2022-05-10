@@ -16,33 +16,29 @@ GROUP BY funcionario.sexo;
 
 -- Questão 3
 
-SELECT nome_departamento, concat (primeiro_nome,' ', nome_nome,' ',ultimo_nome) as nome_completo, data_nascimento, extract(year frin age(funcionario.data_nascimento)), funcionario.salario
+SELECT nome_departamento, concat (primeiro_nome,' ', nome_meio,' ' ,ultimo_nome) as nome_completo, data_nascimento, extract(year from age (funcionario.data_nascimento)) as idade, funcionario.salario
 FROM departamento, funcionario
-WHERE departamento.numero_departamento = funcionario.numero_departamento 
-
-select nome_departamento, concat (primeiro_nome,' ', nome_meio,' ' ,ultimo_nome) as nome_completo, data_nascimento, extract(year from age (funcionario.data_nascimento)) as idade, funcionario.salario
-from departamento, funcionario
-where departamento.numero_departamento = funcionario.numero_departamento
+WHERE departamento.numero_departamento = funcionario.numero_departamento
 
 -- Questão 4
 
-select concat(primeiro_nome,' ', nome_meio,' ' ,ultimo_nome) as nome_completo, extract(year from age (funcionario.data_nascimento)) as idade, salario,
-case 
+SELECT CONCAT(primeiro_nome,' ', nome_meio,' ' ,ultimo_nome) as nome_completo, extract(year from age (funcionario.data_nascimento)) as idade, salario,
+CASE
 	when salario < 35000 then salario * 1.2 
 	else salario * 1.15
 	end as reajuste
-from funcionario
+FROM funcionario
 
 -- Questão 5
 
-select nome_departamento, concat(primeiro_nome, ' ', nome_meio, ' ', ultimo_nome) as nome,
-case 
-when cpf = cpf_gerente then 'gerente'
-else 'funcionario'
-end as cargo, salario
-from departamento, funcionario
-where departamento.numero_departamento = funcionario.numero_departamento
-order by nome_departamento, salario desc;
+SELECT nome_departamento, concat(primeiro_nome, ' ', nome_meio, ' ', ultimo_nome) as nome,
+CASE 
+WHEN cpf = cpf_gerente then 'gerente'
+ELSE 'funcionario'
+END as cargo, salario
+FROM departamento, funcionario
+WHERE departamento.numero_departamento = funcionario.numero_departamento
+ORDER BY nome_departamento, salario desc;
 
 
 -- Questão 6
@@ -62,7 +58,7 @@ ON f.cpf = d.cpf_funcionario;
 -- Questão 7
 
 SELECT CONCAT(funcionario.primeiro_nome,' ', funcionario.nome_meio,' ', funcionario.ultimo_nome) Funcionário, dpt.nome_departamento Departamento,
-CONCAT('R$',' ', funcionario.salario) Salário
+CONCAT(funcionario.salario) Salário
 FROM funcionario
 LEFT OUTER JOIN dependente
 ON funcionario.cpf = dependente.cpf_funcionario
@@ -72,16 +68,15 @@ WHERE dependente.cpf_funcionario IS NULL;
 
 -- Questão 8
 
-SELECT proj.numero_departamento AS "numero departamento" ,nome_projeto AS "nome projeto",
-trab_em.horas AS "Horas",
-CONCAT (func.primeiro_nome,' ', nome_meio,' ', ultimo_nome) AS "nome_completo"
-FROM ((projeto AS proj
-INNER JOIN trabalha_em  AS trab_em ON trab_em.numero_projeto = proj.numero_projeto)
-INNER JOIN funcionario AS func ON func.cpf = trab_em.cpf_funcionario);
+SELECT proj.numero_departamento as "umero departamento" ,nome_projeto as "nome projeto", trab_em.horas as "Horas",
+CONCAT (func.primeiro_nome,' ', nome_meio,' ', ultimo_nome) as "nome_completo"
+FROM ((projeto as proj
+INNER JOIN trabalha_em  as trab_em on trab_em.numero_projeto = proj.numero_projeto)
+INNER JOIN funcionario as func on func.cpf = trab_em.cpf_funcionario);
 
 -- Questão 9
 
-SELECT dpt.nome_departamento Departamento, p.nome_projeto Projeto, SUM(DISTINCT(t.horas)) "Tempo Total"
+SELECT dpt.nome_departamento departamento, p.nome_projeto projeto, SUM(DISTINCT(t.horas)) "Tempo Total"
 FROM trabalha_em t
 INNER JOIN funcionario f
 ON t.cpf_funcionario = f.cpf
@@ -103,20 +98,20 @@ GROUP BY dpt.nome_departamento;
 
 SELECT CONCAT(funcionario.primeiro_nome,' ', funcionario.nome_meio,' ', funcionario.ultimo_nome) Funcionário, p.nome_projeto Projeto,
 CASE
-WHEN trabalha_em.horas > 0 THEN CONCAT('R$',' ', trabalha_em.horas * 50)
-ELSE 'R$ 0.0'
+WHEN trabalha_em.horas > 0 THEN CONCAT(trabalha_em.horas * 50)
+ELSE '0.0'
 END "Total Recebido"
 FROM funcionario
 INNER JOIN trabalha_em
 ON funcionario.cpf = trabalha_em.cpf_funcionario
 INNER JOIN projeto p
 ON trabalha_em.numero_projeto = p.numero_projeto
-ORDER BY trabalha_em.horas DESC;
+ORDER BY trabalha_em.horas desc;
 
 -- Questão 12
 
-SELECT departamento.nome_departamento Departamento, p.nome_projeto Projeto,
-funcionario.primeiro_nome Funcionário, CONCAT(t.horas, 'h') "Horas de Trabalho"
+SELECT departamento.nome_departamento Departamento, p.nome_projeto Projeto, funcionario.primeiro_nome Funcionário, 
+CONCAT(t.horas, 'h') "Horas de Trabalho"
 FROM funcionario
 INNER JOIN departamento
 ON funcionario.numero_departamento = departamento.numero_departamento
@@ -132,7 +127,7 @@ SELECT CONCAT(funcionario.primeiro_nome,' ', funcionario.nome_meio,' ', funciona
 CASE
 WHEN funcionario.sexo = 'M' THEN 'Masculino'
 WHEN funcionario.sexo = 'F' THEN 'Feminino'
-END Sexo,
+END sexo,
 extract(year from age (funcionario.data_nascimento)) as idade
 FROM funcionario
 UNION
@@ -140,16 +135,16 @@ SELECT CONCAT(dependente.nome_dependente,' ', funcionario.nome_meio,' ', funcion
 CASE
 WHEN dependente.sexo = 'M' THEN 'Masculino'
 WHEN dependente.sexo = 'F' THEN 'Feminino'
-END Sexo,
+END sexo,
 extract(year from age (funcionario.data_nascimento)) as idade
 FROM dependente
 INNER JOIN funcionario
 ON dependente.cpf_funcionario = funcionario.cpf
-ORDER BY idade DESC;
+ORDER BY idade desc;
 
 -- Questão 14
 
-SELECT dpt.nome_departamento Departamento, COUNT(funcionario.numero_departamento) "Nº Funcionários"
+SELECT dpt.nome_departamento Departamento, COUNT(funcionario.numero_departamento) "Nº de Funcionários"
 FROM funcionario
 INNER JOIN departamento dpt
 ON funcionario.numero_departamento = dpt.numero_departamento
@@ -157,11 +152,11 @@ GROUP BY dpt.nome_departamento;
 
 -- Questão 15
 
-SELECT CONCAT (func.primeiro_nome,' ',nome_meio,' ', ultimo_nome) AS "nome_completo",
-func.numero_departamento AS "departamento", proj.nome_projeto AS "nome_projeto"
-FROM funcionario AS func 
-INNER JOIN trabalha_em AS trab_em ON (trab_em.cpf_funcionario = func.cpf)
-INNER JOIN projeto AS proj ON (proj.numero_projeto = trab_em.numero_projeto)
+SELECT CONCAT (func.primeiro_nome,' ',nome_meio,' ', ultimo_nome) as "nome completo",
+func.numero_departamento as "departamento", proj.nome_projeto as "nome projeto"
+FROM funcionario as func 
+INNER JOIN trabalha_em as trab_em on (trab_em.cpf_funcionario = func.cpf)
+INNER JOIN projeto as proj on (proj.numero_projeto = trab_em.numero_projeto)
 ORDER BY func.numero_departamento;
 
 
