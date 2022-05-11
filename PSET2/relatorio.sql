@@ -68,7 +68,7 @@ WHERE dependente.cpf_funcionario IS NULL;
 
 -- Questão 8
 
-SELECT proj.numero_departamento as "umero departamento" ,nome_projeto as "nome projeto", trab_em.horas as "Horas",
+SELECT proj.numero_departamento as "numero departamento" ,nome_projeto as "nome projeto", trab_em.horas as "Horas",
 CONCAT (func.primeiro_nome,' ', nome_meio,' ', ultimo_nome) as "nome_completo"
 FROM ((projeto as proj
 INNER JOIN trabalha_em  as trab_em on trab_em.numero_projeto = proj.numero_projeto)
