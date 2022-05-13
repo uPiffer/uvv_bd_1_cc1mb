@@ -7,7 +7,7 @@
 ### Matricula: 202299905
 
 
-li Este PSET foi realizado com a ajuda de dois colegas de turma
+## Este PSET foi realizado com a ajuda de dois colegas de turma
 
 #### Guilherme Henrique Vieira
 #### Juan Carlos Lameira Hansen
