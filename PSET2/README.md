@@ -9,5 +9,5 @@
 
 ### Este PSET foi realizado com a ajuda de dois colegas de turma
 
-## Guilherme Henrique Vieira
-## Juan Carlos Lameira Hansen
+#### Guilherme Henrique Vieira
+#### Juan Carlos Lameira Hansen
