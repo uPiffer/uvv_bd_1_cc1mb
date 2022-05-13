@@ -1,5 +1,9 @@
 -- Questões do PSET 2
 
+/* Este trabalho foi realizado com a ajuda de dois colegas de turma
+Guilherme Henrique Vieira
+Juan Carlos Lameira Hansen */
+
 -- Questão 1
 
 SELECT funcionario.numero_departamento, AVG(funcionario.salario) as media_salarial
