@@ -18,7 +18,7 @@ GROUP BY funcionario.sexo;
 
 SELECT nome_departamento, concat (primeiro_nome,' ', nome_meio,' ' ,ultimo_nome) as nome_completo, data_nascimento, extract(year from age (funcionario.data_nascimento)) as idade, funcionario.salario
 FROM departamento, funcionario
-WHERE departamento.numero_departamento = funcionario.numero_departamento
+WHERE departamento.numero_departamento = funcionario.numero_departamento;
 
 -- Questão 4
 
@@ -27,7 +27,7 @@ CASE
 	when salario < 35000 then salario * 1.2 
 	else salario * 1.15
 	end as reajuste
-FROM funcionario
+FROM funcionario;
 
 -- Questão 5
 
